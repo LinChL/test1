@@ -1,0 +1,74 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <algorithm>
+#include <cstring>
+#include<iostream>
+#include <math.h>
+using namespace std;
+
+struct p
+{
+	char name[11];
+	char pw[11];
+};
+int main()
+{
+	int n,l,f,k;
+	int trans[1001];
+	p a[1001];
+	memset(trans,0,sizeof(trans));
+	while(scanf("%d",&n)!=EOF)
+	{
+		k=0;
+		for(int i=0;i<n;i++)
+		{
+			scanf("%s%s",&a[i].name,&a[i].pw);
+			f=0;
+			l=strlen(a[i].pw);
+			for(int j=0;j<l;j++)
+			{
+				if(a[i].pw[j]-'1'==0)
+				{
+					f=1;
+					a[i].pw[j]='@';
+				}
+				if(a[i].pw[j]-'0'==0)
+				{
+					f=1;
+					a[i].pw[j]='%';
+
+				}
+				if(a[i].pw[j]-'l'==0)
+				{
+					f=1;
+					a[i].pw[j]='L';
+				}
+				if(a[i].pw[j]-'O'==0)
+				{
+					f=1;
+					a[i].pw[j]='o';
+				}
+			}
+			if(f==1)
+			{
+				trans[k++]=i;
+			}
+		}
+		if(k==0)
+		{
+			if(n==1)
+				printf("There is 1 account and no account is modified\n");
+			else
+				printf("There are %d accounts and no account is modified\n",n);
+		}
+		else
+		{
+			printf("%d\n",k);
+			for(int m=0;m<k;m++)
+			{
+				printf("%s %s\n",a[trans[m]].name,a[trans[m]].pw);
+			}
+		}
+	}
+	return 0;
+}
